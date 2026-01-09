@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מבוא למערכות מידע וניהול נתונים</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #0ea5e9;
+            --accent: #8b5cf6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray: #94a3b8;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            direction: rtl;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: #ffd700;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .logo-text p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #475569;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: #7c3aed;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        /* Trends Section */
+        .trends-section {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        }
+
+        .trend-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .trend-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .trend-card:hover {
+            transform: scale(1.03);
+        }
+
+        .trend-header {
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+        }
+
+        .trend-content {
+            padding: 20px;
+        }
+
+        .trend-content ul {
+            padding-left: 20px;
+            margin-top: 15px;
+        }
+
+        .trend-content li {
+            margin-bottom: 10px;
+        }
+
+        /* Curriculum */
+        .curriculum-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .curriculum-item:hover {
+            transform: translateX(10px);
+            border-left: 5px solid var(--accent);
+        }
+
+        .module-number {
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-left: 20px;
+            flex-shrink: 0;
+        }
+
+        .module-info h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .testimonial-card:before {
+            content: """;
+            font-size: 5rem;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            color: var(--gray);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-content {
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .curriculum-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .module-number {
+                margin-left: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-database"></i>
+                <div class="logo-text">
+                    <h1>מבוא למערכות מידע וניהול נתונים</h1>
+                    <p>קורס מקיף ללימוד יסודות ניהול המידע</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">על הקורס</a></li>
+                    <li><a href="#trends">מגמות</a></li>
+                    <li><a href="#curriculum">תוכן הלימוד</a></li>
+                    <li><a href="#testimonials">המלצות</a></li>
+                    <li><a href="#contact">הרשמה</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h2> domina את עולם מערכות המידע והנתונים</h2>
+            <p>קורס מקיף שמלמד אותך את היסודות של ניהול מידע, מסדי נתונים, אבטחת מידע וטכנולוגיות מתקדמות בתחום המידע</p>
+            <a href="#contact" class="cta-button">הירשם עכשיו <i class="fas fa-arrow-left"></i></a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>על הקורס שלנו</h2>
+                <p>קורס "מבוא למערכות מידע וניהול נתונים" הוא קורס מקיף שמטרתו להקנות ידע בסיסי ומעשי בתחומים המרכזיים של ניהול מידע ומערכות מידע בעידן הדיגיטלי</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>理論 ותרגול</h3>
+                    <p>שילוב בין ידע תיאורטי מעמיק לבין תרגולים פרקטיים שמאפשרים יישום מיידי של הנלמד</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>טכנולוגיות מתקדמות</h3>
+                    <p>למידה בשימוש בטכנולוגיות מודרניות כמו SQL, NoSQL, облачные פתרונות ואנליזה של大数据</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>מורים מנוסים</h3>
+                    <p>מורים מהתחום עם ניסיון רב בפיתוח מערכות מידע וניהול נתונים בחברות טכנולוגיה</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trends Section -->
+    <section id="trends" class="trends-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>המגמות המובילות כיום</h2>
+                <p>הקורס כולל את התrends העדכניים ביותר בתחום מערכות המידע וניהול הנתונים</p>
+            </div>
+            <div class="trend-cards">
+                <div class="trend-card">
+                    <div class="trend-header">
+                        <h3>大数据 ואנליזה</h3>
+                    </div>
+                    <div class="trend-content">
+                        <p>ניהול וניתוח נפח עצום של נתונים על מנת לחלץ תובנות עסקיות משמעותיות</p>
+                        <ul>
+                            <li>Hadoop ו-Spark</li>
+                            <li>אחסון בענן</li>
+                            <li>Machine Learning על大数据</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="trend-card">
+                    <div class="trend-header">
+                        <h3>NoSQL ו-Big Data</h3>
+                    </div>
+                    <div class="trend-content">
+                        <p>מסדי נתונים לא רלציונליים שמתאימים לניהול大数据 ומערכות מבוזרות</p>
+                        <ul>
+                            <li>MongoDB ו-Cassandra</li>
+                            <li>Graph Databases</li>
+                            <li>Time Series Databases</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="trend-card">
+                    <div class="trend-header">
+                        <h3>אבטחת מידע ופרטיות</h3>
+                    </div>
+                    <div class="trend-content">
+                        <p>הגנה על מידע רגיש ושמירה על פרטיות המשתמשים בהתאם לחוקים</p>
+                        <ul>
+                            <li>GDPR ו-legislation אחר</li>
+                            <li>Encryption techniques</li>
+                            <li>Data Governance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Section -->
+    <section id="curriculum">
+        <div class="container">
+            <div class="section-title">
+                <h2>תוכן הלימוד</h2>
+                <p>תוכנית הלימודים המפורטת涵盖了 את כל היסודות הנחוצים לניהול מידע מודרני</p>
+            </div>
+            <div class="curriculum-items">
+                <div class="curriculum-item">
+                    <div class="module-number">1</div>
+                    <div class="module-info">
+                        <h3>יסודות מערכות מידע</h3>
+                        <p>הכרות עם סוגי מערכות מידע, תפקידן בארגון, והקשר ל-strategy עסקית</p>
+                    </div>
+                </div>
+                <div class="curriculum-item">
+                    <div class="module-number">2</div>
+                    <div class="module-info">
+                        <h3>מודלים ומסדי נתונים</h3>
+                        <p>Entity Relationship Models, Relational Database Design, Normalization</p>
+                    </div>
+                </div>
+                <div class="curriculum-item">
+                    <div class="module-number">3</div>
+                    <div class="module-info">
+                        <h3>שפות שאילתות</h3>
+                        <p>שליטה ב-SQL לתשאול וניהול מסדי נתונים, כולל Advanced Queries</p>
+                    </div>
+                </div>
+                <div class="curriculum-item">
+                    <div class="module-number">4</div>
+                    <div class="module-info">
+                        <h3>Big Data Technologies</h3>
+                        <p>הכרות עם Hadoop, Spark, NoSQL Databases ופתרונות Cloud</p>
+                    </div>
+                </div>
+                <div class="curriculum-item">
+                    <div class="module-number">5</div>
+                    <div class="module-info">
+                        <h3>אבטחת מידע ופרטיות</h3>
+                        <p>แนวทาง לביטחון מידע, הגנת נתונים ואudit, והצפנת מידע</p>
+                    </div>
+                </div>
+                <div class="curriculum-item">
+                    <div class="module-number">6</div>
+                    <div class="module-info">
+                        <h3>Business Intelligence</h3>
+                        <p>ניתוח נתונים, דאשבורדים, והצגת תובנות לעסקים</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>מה אומרים הסטודנטים שלנו</h2>
+                <p>המלצות מאנשים שהשלימו את הקורס ומשתמשים בידע ביום יום</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"הקורס סיפק לי בסיס חזק ב-managing נתונים ו-systems מידע. התוכן מעודכן ומעשי מאוד. המורים מוכשרים ומכינים אותך לאתגרים אמיתיים בתחום."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RS</div>
+                        <div>
+                            <h4>רון סגל</h4>
+                            <p>מהנדס נתונים, גוגל</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"ה-course היה החלטה מצוינת לקריירה שלי. למדתי איך לנהל大数据, לעבוד עם מסדי נתונים שונים, ולהבין את המורכבות של מערכות מידע מודרניות."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">NT</div>
+                        <div>
+                            <h4>נועה תורג'מן</h4>
+                            <p>אנליסט BI, מיקרוסופט</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"ה-course מתאים גם למתחילים וגם למי שרוצה לעדכן את הידע שלו. החומר מעודכן וכולל את הטכנולוגיות המובילות בשוק היום."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AD</div>
+                        <div>
+                            <h4>אדם דוד</h4>
+                            <p>יועץ IT, IBM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>הרשמה לקורס</h2>
+                <p>השאירו פרטים ונחזור אליכם בהקדם</p>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">שם מלא</label>
+                    <input type="text" id="name" placeholder="הזן את שמך המלא">
+                </div>
+                <div class="form-group">
+                    <label for="email">כתובת אימייל</label>
+                    <input type="email" id="email" placeholder="your.email@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone">מספר טלפון</label>
+                    <input type="tel" id="phone" placeholder="050-1234567">
+                </div>
+                <div class="form-group">
+                    <label for="message">הודעה</label>
+                    <textarea id="message" placeholder="שאלות או פרטים נוספים..."></textarea>
+                </div>
+                <button type="submit" class="cta-button">שלח בקשה להרשמה</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>關於 הקורס</h3>
+                    <p>קורס "מבוא למערכות מידע וניהול נתונים" הוא תוכנית לימודים מקיפה שנועדה להכשיר אנשי מקצוע בתחום ניהול המידע וה-big data.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>קישורים מהירים</h3>
+                    <ul>
+                        <li><a href="#about">על הקורס</a></li>
+                        <li><a href="#trends">מגמות מובילות</a></li>
+                        <li><a href="#curriculum">תוכן הלימוד</a></li>
+                        <li><a href="#testimonials">המלצות</a></li>
+                        <li><a href="#contact">הרשמה</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>פרטי קשר</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> רחוב הרצל 10, תל אביב</li>
+                        <li><i class="fas fa-phone"></i> 03-1234567</li>
+                        <li><i class="fas fa-envelope"></i> info@datamanagement.co.il</li>
+                        <li><i class="fas fa-clock"></i> שבתות וימי ראשון: 09:00-17:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 מבוא למערכות מידע וניהול נתונים. כל הזכויות שמורות.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form submission handling
+        const form = document.querySelector('.contact-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                
+                // Simple validation
+                if(name && email) {
+                    alert(`תודה ${name}! טופס ההרשמה נשלח בהצלחה. נחזור אליכם בדוא"ל בקרוב.`);
+                    form.reset();
+                } else {
+                    alert('אנא מלאו את כל השדות הנדרשים');
+                }
+            });
+        }
+
+        // Animation on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .trend-card, .curriculum-item, .testimonial-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
